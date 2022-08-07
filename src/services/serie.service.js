@@ -1,4 +1,3 @@
-
 const series = [...require('../mocks/mocks')];
 const findAllSeriesService = () => {
   return series;
