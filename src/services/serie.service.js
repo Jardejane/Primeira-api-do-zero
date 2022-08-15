@@ -1,27 +1,27 @@
-const series = [...require('../mocks/mocks')];
-const findAllSeriesService = () => {
+const Series = require('../models/model.series')
+
+const findAllSeriesService = async () => {
+  const series = await Series.find()
   return series;
 };
-const findIdSerieService = (IdParametro) => {
-  return series.find((serie) => serie.Id === IdParametro);
+
+const findIdSerieService = async (IdParametro) => {
+
+  const serieId = await Series.findById(IdParametro)
+  return serieId
 };
 
-const criaçaoSerieService = (novaSerie) => {
-  const novo_id = series.length + 1;
-  novaSerie.Id = novo_id;
-  series.push(novaSerie);
-  return novaSerie;
+const criaçaoSerieService = async (novaSerie) => {
+  const novSerie = await Series.create(novaSerie)
+  return novSerie;
 };
-const atualizarSerieService = (idParametro, editeSerie) => {
-  editeSerie['Id'] = Number(idParametro);
-  const serieIndex = series.findIndex((serie) => serie.Id === idParametro);
-  series[serieIndex] = editeSerie;
-  return editeSerie;
+const atualizarSerieService = async (idParametro, editeSerie) => {
+ const editSerie = await Series.findByIdAndUpdate(idParametro,editeSerie)
+  return editSerie;
 };
 
-const deleteSerieService = (id) => {
-  const serieIndex = series.findIndex((serie) => serie.Id == id);
-  return series.splice(serieIndex, 1);
+const deleteSerieService = async (id) => {
+  return await Series.findByIdAndDelete(id)
 };
 
 module.exports = {
